@@ -89,25 +89,25 @@ pipeline {
 		stage('Integration Tests Sqlite') {
 			steps {
 				// Bring up a stack
-				sh 'docker-compose up -d fullstack-sqlite'
-				sh './scripts/wait-healthy $(docker-compose ps --all -q fullstack-sqlite) 120'
+				sh 'docker compose up -d fullstack-sqlite'
+				sh './scripts/wait-healthy $(docker compose ps --all -q fullstack-sqlite) 120'
 				// Stop and Start it, as this will test it's ability to restart with existing data
-				sh 'docker-compose stop fullstack-sqlite'
-				sh 'docker-compose start fullstack-sqlite'
-				sh './scripts/wait-healthy $(docker-compose ps --all -q fullstack-sqlite) 120'
+				sh 'docker compose stop fullstack-sqlite'
+				sh 'docker compose start fullstack-sqlite'
+				sh './scripts/wait-healthy $(docker compose ps --all -q fullstack-sqlite) 120'
 
 				// Run tests
 				sh 'rm -rf test/results'
-				sh 'docker-compose up cypress-sqlite'
+				sh 'docker compose up cypress-sqlite'
 				// Get results
-				sh 'docker cp -L "$(docker-compose ps --all -q cypress-sqlite):/test/results" test/'
+				sh 'docker cp -L "$(docker compose ps --all -q cypress-sqlite):/test/results" test/'
 			}
 			post {
 				always {
 					// Dumps to analyze later
 					sh 'mkdir -p debug'
-					sh 'docker-compose logs fullstack-sqlite > debug/docker_fullstack_sqlite.log'
-					sh 'docker-compose logs db > debug/docker_db.log'
+					sh 'docker compose logs fullstack-sqlite > debug/docker_fullstack_sqlite.log'
+					sh 'docker compose logs db > debug/docker_db.log'
 					// Cypress videos and screenshot artifacts
 					dir(path: 'test/results') {
 						archiveArtifacts allowEmptyArchive: true, artifacts: '**/*', excludes: '**/*.xml'
@@ -119,21 +119,21 @@ pipeline {
 		stage('Integration Tests Mysql') {
 			steps {
 				// Bring up a stack
-				sh 'docker-compose up -d fullstack-mysql'
-				sh './scripts/wait-healthy $(docker-compose ps --all -q fullstack-mysql) 120'
+				sh 'docker compose up -d fullstack-mysql'
+				sh './scripts/wait-healthy $(docker compose ps --all -q fullstack-mysql) 120'
 
 				// Run tests
 				sh 'rm -rf test/results'
-				sh 'docker-compose up cypress-mysql'
+				sh 'docker compose up cypress-mysql'
 				// Get results
-				sh 'docker cp -L "$(docker-compose ps --all -q cypress-mysql):/test/results" test/'
+				sh 'docker cp -L "$(docker compose ps --all -q cypress-mysql):/test/results" test/'
 			}
 			post {
 				always {
 					// Dumps to analyze later
 					sh 'mkdir -p debug'
-					sh 'docker-compose logs fullstack-mysql > debug/docker_fullstack_mysql.log'
-					sh 'docker-compose logs db > debug/docker_db.log'
+					sh 'docker compose logs fullstack-mysql > debug/docker_fullstack_mysql.log'
+					sh 'docker compose logs db > debug/docker_db.log'
 					// Cypress videos and screenshot artifacts
 					dir(path: 'test/results') {
 						archiveArtifacts allowEmptyArchive: true, artifacts: '**/*', excludes: '**/*.xml'
@@ -205,7 +205,7 @@ pipeline {
 	}
 	post {
 		always {
-			sh 'docker-compose down --remove-orphans --volumes -t 30'
+			sh 'docker compose down --remove-orphans --volumes -t 30'
 			sh 'echo Reverting ownership'
 			sh 'docker run --rm -v $(pwd):/data jc21/ci-tools chown -R $(id -u):$(id -g) /data'
 		}

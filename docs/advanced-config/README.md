@@ -33,7 +33,7 @@ Create a network, ie "scoobydoo":
 docker network create scoobydoo
 ```
 
-Then add the following to the `docker-compose.yml` file for both NPM and any other
+Then add the following to the `docker compose.yml` file for both NPM and any other
 services running on this Docker host:
 
 ```yml
@@ -64,7 +64,7 @@ networks:
 ```
 
 Now in the NPM UI you can create a proxy host with `portainer` as the hostname,
-and port `9000` as the port. Even though this port isn't listed in the docker-compose
+and port `9000` as the port. Even though this port isn't listed in the docker compose
 file, it's "exposed" by the Portainer Docker image for you and not available on
 the Docker host outside of this Docker network. The service name is used as the
 hostname, so make sure your service names are unique when using the same network.
@@ -72,7 +72,7 @@ hostname, so make sure your service names are unique when using the same network
 ## Docker Healthcheck
 
 The `Dockerfile` that builds this project does not include a `HEALTHCHECK` but you can opt in to this
-feature by adding the following to the service in your `docker-compose.yml` file:
+feature by adding the following to the service in your `docker compose.yml` file:
 
 ```yml
 healthcheck:

@@ -2,7 +2,7 @@
 
 ## Running the App
 
-Create a `docker-compose.yml` file:
+Create a `docker compose.yml` file:
 
 ```yml
 version: '3.8'
@@ -35,7 +35,7 @@ services:
 Then:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Using MySQL / MariaDB Database
@@ -48,7 +48,7 @@ If you opt for the MySQL configuration you will have to provide the database ser
 It's easy to use another docker container for your database also and link it as part of the docker stack, so that's what the following examples
 are going to use.
 
-Here is an example of what your `docker-compose.yml` will look like when using a MariaDB container:
+Here is an example of what your `docker compose.yml` will look like when using a MariaDB container:
 
 ```yml
 version: '3.8'
@@ -110,7 +110,7 @@ Check out the [dockerhub tags](https://hub.docker.com/r/jc21/nginx-proxy-manager
 for a list of supported architectures and if you want one that doesn't exist,
 [create a feature request](https://github.com/NginxProxyManager/nginx-proxy-manager/issues/new?assignees=&labels=enhancement&template=feature_request.md&title=).
 
-Also, if you don't know how to already, follow [this guide to install docker and docker-compose](https://manre-universe.net/how-to-run-docker-and-docker-compose-on-raspbian/)
+Also, if you don't know how to already, follow [this guide to install docker and docker compose](https://manre-universe.net/how-to-run-docker-and-docker compose-on-raspbian/)
 on Raspbian.
 
 Please note that the `jc21/mariadb-aria:latest` image might have some problems on some ARM devices, if you want a separate database container, use the `yobasystems/alpine-mariadb:latest` image.

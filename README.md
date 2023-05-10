@@ -48,12 +48,12 @@ I won't go in to too much detail here but here are the basics for someone new to
 
 ## Quick Setup
 
-1. Install Docker and Docker-Compose
+1. Install Docker and docker compose
 
 - [Docker Install documentation](https://docs.docker.com/install/)
-- [Docker-Compose Install documentation](https://docs.docker.com/compose/install/)
+- [docker compose Install documentation](https://docs.docker.com/compose/install/)
 
-2. Create a docker-compose.yml file similar to this:
+2. Create a docker compose.yml file similar to this:
 
 ```yml
 version: '3.8'
@@ -75,9 +75,9 @@ This is the bare minimum configuration required. See the [documentation](https:/
 3. Bring up your stack by running
 
 ```bash
-docker-compose up -d
+docker compose up -d
 
-# If using docker-compose-plugin
+# If using docker compose-plugin
 docker compose up -d
 
 ```
